@@ -1,0 +1,12 @@
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.bot
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.deps.json
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.runtimeconfig.json
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.runtimeconfig.dev.json
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.dll
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.csprojAssemblyReference.cache
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.csproj.CoreCompileInputs.cache
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.AssemblyInfoInputs.cache
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.AssemblyInfo.cs
+D:\17_Bot\TaxiAIBot\TaxiAIBot\bin\Debug\netcoreapp2.1\TaxiAIBot.pdb
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.dll
+D:\17_Bot\TaxiAIBot\TaxiAIBot\obj\Debug\netcoreapp2.1\TaxiAIBot.pdb

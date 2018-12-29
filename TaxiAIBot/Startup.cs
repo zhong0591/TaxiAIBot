@@ -32,23 +32,9 @@ namespace TaxiAIBot
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
-        }
-
-        /// <summary>
-        /// Gets the configuration that represents a set of key/value application configuration properties.
-        /// </summary>
-        /// <value>
-        /// The <see cref="IConfiguration"/> that represents a set of key/value application configuration properties.
-        /// </value>
-        public IConfiguration Configuration { get; }
-
-        /// <summary>
-        /// This method gets called by the runtime. Use this method to add services to the container.
-        /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/> specifies the contract for a collection of service descriptors.</param>
-        /// <seealso cref="IStatePropertyAccessor{T}"/>
-        /// <seealso cref="https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/dependency-injection"/>
-        /// <seealso cref="https://docs.microsoft.com/en-us/azure/bot-service/bot-service-manage-channels?view=azure-bot-service-4.0"/>
+        } 
+        public IConfiguration Configuration { get; } 
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBot<TaxiAIBotBot>(options =>
@@ -71,36 +57,28 @@ namespace TaxiAIBot
                // Catches any errors that occur during a conversation turn and logs them.
                options.OnTurnError = async (context, exception) =>
               {
-                  await context.SendActivityAsync("Sorry, it looks like something went wrong.");
-              }; 
-
+                  await context.SendActivityAsync("Sorry, it looks like something went wrong." + exception.Message);
+              };  
            });
 
 
             IStorage dataStore = new MemoryStorage();
             var conversationState = new ConversationState(dataStore);
-            var userState = new UserState(dataStore);
-      
-           
-
-            // Create and register state accessors.
-            // Accessors created here are passed into the IBot-derived class on every turn.
+            var userState = new UserState(dataStore);   
             services.AddSingleton<TaxiAIBotAccessors>(sp =>
-            {
-                // Create the custom state accessor.
-                // State accessors enable other components to read and write individual properties of state.
+            { 
                 var accessors = new TaxiAIBotAccessors(conversationState, userState)
                 {
-                    DialogStateAccessor = conversationState.CreateProperty<DialogState>(StringHelper.DIALOG_STATE),
-                    UserInfoAccessor = userState.CreateProperty<UserInfo>(StringHelper.USER_INFO_FILE)  
-                };
-                accessors.DidBotWelcomeUserAccessor =  userState.CreateProperty<bool>(StringHelper.BOT_WELCOME_USER);
+                    DialogStateAccessor = conversationState.CreateProperty<DialogState>(StringHelper.PROP_STATE),
+                    UserInfoAccessor = userState.CreateProperty<UserInfo>(StringHelper.PROP_USER_INFO)  ,
+                    DidBotWelcomeUserAccessor = userState.CreateProperty<bool>(StringHelper.PROP_BOT_WELCOME_USER) 
+                };                 
                 return accessors;
             });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+        { 
             app.UseDefaultFiles()
                 .UseStaticFiles()
                 .UseBotFramework();
