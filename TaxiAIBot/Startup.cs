@@ -80,7 +80,7 @@ namespace TaxiAIBot
                 var accessors = new TaxiAIBotAccessors(conversationState, userState)
                 {
                     DialogStateAccessor = conversationState.CreateProperty<DialogState>(StringHelper.PROP_STATE),
-                    UserInfoAccessor = userState.CreateProperty<UserInfo>(StringHelper.PROP_USER_INFO)  ,
+                    UserInfoAccessor = userState.CreateProperty<Model.User>(StringHelper.PROP_USER_INFO)  ,
                     DidBotWelcomeUserAccessor = userState.CreateProperty<bool>(StringHelper.PROP_BOT_WELCOME_USER) 
                 };                 
                 return accessors;

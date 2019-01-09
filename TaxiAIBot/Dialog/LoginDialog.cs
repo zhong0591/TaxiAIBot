@@ -14,7 +14,7 @@ namespace TaxiAIBot.Dialog
 
         public static async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values[StringHelper.PROMPT_USERINFO] = new UserInfo();
+            stepContext.Values[StringHelper.PROMPT_USERINFO] = new Model.User();
             return await stepContext.PromptAsync(
                StringHelper.PROMPT_USERNAME,
                 new PromptOptions { Prompt = MessageFactory.Text("Please enter your name.") },
@@ -28,7 +28,7 @@ namespace TaxiAIBot.Dialog
             CancellationToken cancellationToken)
         {
             var username = (string)stepContext.Result;
-            ((UserInfo)stepContext.Values[StringHelper.PROMPT_USERINFO]).Username = username;
+            ((Model.User)stepContext.Values[StringHelper.PROMPT_USERINFO]).Username = username;
             temp_username = username;
             return await stepContext.PromptAsync(
                 StringHelper.PROMPT_PASSWORD,
@@ -53,7 +53,7 @@ namespace TaxiAIBot.Dialog
             WaterfallStepContext stepContext,
             CancellationToken cancellationToken)
         {
-            var userinfo = (UserInfo)stepContext.Values[StringHelper.PROMPT_USERINFO];
+            var userinfo = (Model.User)stepContext.Values[StringHelper.PROMPT_USERINFO];
             userinfo.Password = (string)stepContext.Result;
 
             await stepContext.Context.SendActivityAsync($"Welcome {userinfo.Username}");

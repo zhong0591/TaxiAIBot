@@ -13,7 +13,7 @@ namespace TaxiAIBot.Dialog
     {
         public static async Task<DialogTurnResult> CreateAccountDialogAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values[StringHelper.PROMPT_USERINFO] = new UserInfo();
+            stepContext.Values[StringHelper.PROMPT_USERINFO] = new Model.User();
             return await stepContext.BeginDialogAsync(StringHelper.DIA_CREATE_ACCOUNT, null, cancellationToken);
         }
 
@@ -33,13 +33,13 @@ namespace TaxiAIBot.Dialog
 
                 //await stepContext.Context.SendActivityAsync(MessageFactory.Text($"{result["shoesize"]}"), cancellationToken);
 
-                stepContext.Values[StringHelper.PROMPT_USERINFO] = new UserInfo()
+                stepContext.Values[StringHelper.PROMPT_USERINFO] = new Model.User()
                 {
-                    FirstName = firstName.ToString(),
-                    LastName = lastName.ToString(),
-                    Address = address.ToString(),
-                    Email = email.ToString(),
-                    Phone = phone.ToString(), 
+                    first_name = firstName.ToString(),
+                    last_name = lastName.ToString(),
+                   // add = address.ToString(),
+                    email = email.ToString(),
+                    phone = phone.ToString(), 
                 }; 
 
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text($"{firstName}  is created"), cancellationToken);

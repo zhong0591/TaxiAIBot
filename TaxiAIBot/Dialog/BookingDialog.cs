@@ -33,23 +33,23 @@ namespace TaxiAIBot.Dialog
 
                 stepContext.Values[StringHelper.PROMPT_BOOKING] = new Booking()
                 {
-                    Name = name.ToString(),
-                    BookTime = DateTime.Now,
-                    Address = new GPS() {
-                        Lat = "Address LAT",
-                        Lng = "Address LNG",
-                        Formatted = address.ToString()
+                    name = name.ToString(),
+                    date = DateTime.Now,
+                    address = new Address() {
+                        lat = "Address LAT",
+                        lng = "Address LNG",
+                        formatted = address.ToString()
                     },
-                    Destination = new GPS() {
-                        Lat = "Destination LAT",
-                        Lng = "Destination LNG",
-                        Formatted = address.ToString()
+                    destination = new Destination() {
+                        lat = "Destination LAT",
+                        lng = "Destination LNG",
+                        formatted = address.ToString()
                     }, 
-                    Phone = phone.ToString(), 
-                    Payment = new Payment() {
-                        Cost = 1.2f,
-                        Price = 1.5f,
-                        Fixed = 0
+                    phone = phone.ToString(), 
+                    payment = new Payment() {
+                        cost = 2f,
+                        price = 1.5f,
+                        payment_fixed = 1.0f
                     }
                 };
                 var booking = stepContext.Values[StringHelper.PROMPT_BOOKING] as Booking; 
@@ -57,7 +57,7 @@ namespace TaxiAIBot.Dialog
                 var b =  VehicleAPI.CreateBooking<Booking,Booking>("https://api.icabbi.com/v2/accountfields/generic",  booking);
 
               //  APIResponse res = VehicleAPI.CreateBooking<Booking, Booking>("https://api.icabbi.com/v2/accountfields/generic", booking ); 
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text($"{booking.Name} has created a book from { booking.Address.Formatted} to  {booking.Destination.Formatted} at {booking.BookTime.ToString()}"), cancellationToken);
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text($"{booking.name} has created a book from { booking.address.formatted} to  {booking.destination.formatted} at {booking.date.ToString()}"), cancellationToken);
             } 
             return await stepContext.EndDialogAsync();
         }

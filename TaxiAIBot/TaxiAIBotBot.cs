@@ -94,7 +94,7 @@ namespace TaxiAIBot
                 {
                     case DialogTurnStatus.Cancelled:
                     case DialogTurnStatus.Empty:
-                        await _accessors.UserInfoAccessor.SetAsync(turnContext, new UserInfo(), cancellationToken);
+                        await _accessors.UserInfoAccessor.SetAsync(turnContext, new Model.User(), cancellationToken);
                         if (StringHelper.STR_LOGIN == text)
                         {
                             await dialogContext.BeginDialogAsync(StringHelper.DIA_LOGIN, cancellationToken);
