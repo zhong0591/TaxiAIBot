@@ -11,7 +11,7 @@ namespace TaxiAIBot.Dialog
     public static class WelcomeDialog
     {
 
-        private const string WelcomeText = "Welcome to Custom Dialog Bot.  Type anything to get started.";
+        private const string WelcomeText = "Welcome to Taxi Bot.  Type anything to get started.";
 
         public static async Task SendWelcomeMessageAsync(ITurnContext turnContext, CancellationToken cancellationToken)
         {
@@ -42,6 +42,17 @@ namespace TaxiAIBot.Dialog
                     new CardAction(ActionTypes.ImBack, "Help", text: "Help", displayText: "Help", value: "Help"),
                 };
             response.Attachments = new List<Attachment>() { card.ToAttachment() };
+
+
+            //var suggestedActions = new SuggestedActions();
+            //suggestedActions.Actions = new List<CardAction>
+            //    {
+            //        new CardAction(ActionTypes.ImBack, "Register", text: "Register", displayText: "Register", value: "Register"),
+            //        new CardAction(ActionTypes.ImBack, "Login", text: "Login", displayText: "Login", value: "Login"),
+            //        new CardAction(ActionTypes.ImBack, "Booking", text: "Booking", displayText: "Create a booking", value: "Booking"),
+            //        new CardAction(ActionTypes.ImBack, "Help", text: "Help", displayText: "Help", value: "Help"),
+            //    };
+            //response.SuggestedActions = suggestedActions;
             await turnContext.SendActivityAsync(response, cancellationToken);
         }
 

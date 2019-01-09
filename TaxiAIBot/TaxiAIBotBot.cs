@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using TaxiAIBot.Common;
 using TaxiAIBot.Dialog;
 using TaxiAIBot.Model;
+using TaxiAIBot.Accessors;
 using TaxiAIBot.Service;
-
 
 namespace TaxiAIBot
 {
@@ -22,10 +22,18 @@ namespace TaxiAIBot
 
         private readonly TaxiAIBotAccessors _accessors;
         private readonly DialogSet _dialogs;
+        private readonly TaxiBotService _services;
+        public static readonly string QnAMakerKey = "QnABot";
 
-        public TaxiAIBotBot(TaxiAIBotAccessors accessors)
+        public TaxiAIBotBot(TaxiAIBotAccessors accessors,TaxiBotService service)
         {
             _accessors = accessors ?? throw new ArgumentNullException(nameof(accessors));
+            _services = service ?? throw new System.ArgumentNullException(nameof(service));
+            if (!_services.QnAServices.ContainsKey(QnAMakerKey))
+            {
+                throw new System.ArgumentException($"Invalid configuration. Please check your '.bot' file for a QnA service named '{QnAMakerKey}'.");
+            }
+
             _dialogs = new DialogSet(accessors.DialogStateAccessor);
             _dialogs
                 .Add(new TextPrompt(StringHelper.PROMPT_USERNAME))
@@ -75,7 +83,7 @@ namespace TaxiAIBot
             {
                 var text = turnContext.Activity.Text.ToLowerInvariant();
                 DialogContext dialogContext = await _dialogs.CreateContextAsync(turnContext, cancellationToken);
-                DialogTurnResult results = await dialogContext.ContinueDialogAsync(cancellationToken);
+                DialogTurnResult results = await dialogContext.ContinueDialogAsync(cancellationToken);  
 
                 if (didBotWelcomeUser == false)
                 {
@@ -96,9 +104,27 @@ namespace TaxiAIBot
                             await turnContext.SendActivityAsync("Let's start create a new user.");
                             await dialogContext.BeginDialogAsync(StringHelper.DIA_REGISTER, cancellationToken);
                         }
-                        else if (StringHelper.STR_BOOKING == text) {
+                        else if (StringHelper.STR_BOOKING == text)
+                        {
                             await turnContext.SendActivityAsync("Let's start create a new booking.");
                             await dialogContext.BeginDialogAsync(StringHelper.DIA_BOOKING, cancellationToken);
+                        }
+                        else {
+
+                            //To do 
+                        //    var response = await _services.QnAServices[QnAMakerKey].GetAnswersAsync(turnContext);
+                        //    if (response != null && response.Length > 0)
+                        //    {
+                        //        await turnContext.SendActivityAsync(response[0].Answer, cancellationToken: cancellationToken);
+                        //    }
+                        //    else
+                        //    {
+                        //        var msg = @"No QnA Maker answers were found. This example uses a QnA Maker Knowledge Base that focuses on smart light bulbs. 
+                        //To see QnA Maker in action, ask the bot questions like 'Why won't it turn on?' or 'I need help'.";
+
+                        //        await turnContext.SendActivityAsync(msg, cancellationToken: cancellationToken);
+                        //    }
+
                         }
                         break;
 

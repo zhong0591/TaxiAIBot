@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using TaxiAIBot.Common;
 using TaxiAIBot.Model;
+using Newtonsoft.Json;
+using TaxiAIBot.APIs;
 
 namespace TaxiAIBot.Dialog
 {
@@ -50,7 +52,11 @@ namespace TaxiAIBot.Dialog
                         Fixed = 0
                     }
                 };
-                var booking = stepContext.Values[StringHelper.PROMPT_BOOKING] as Booking;
+                var booking = stepContext.Values[StringHelper.PROMPT_BOOKING] as Booking; 
+                //For Test
+                var b =  VehicleAPI.CreateBooking<Booking,Booking>("https://api.icabbi.com/v2/accountfields/generic",  booking);
+
+              //  APIResponse res = VehicleAPI.CreateBooking<Booking, Booking>("https://api.icabbi.com/v2/accountfields/generic", booking ); 
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text($"{booking.Name} has created a book from { booking.Address.Formatted} to  {booking.Destination.Formatted} at {booking.BookTime.ToString()}"), cancellationToken);
             } 
             return await stepContext.EndDialogAsync();

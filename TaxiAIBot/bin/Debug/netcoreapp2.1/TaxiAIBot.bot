@@ -16,6 +16,18 @@
       "appId": "<YOUR APP ID>",
       "appPassword": "<YOUR APP PASSWORD>",
       "id": "2"
+    },
+    {
+      "type": "qna",
+      "name": "QnABot",
+      "endpoint": "https://TaxiAIBot.azurewebsites.net/api/messages",
+      "appId": "<YOUR APP ID>",
+      "appPassword": "<YOUR APP PASSWORD>",
+      "id": "3", 
+      "kbid": "1",
+      "endpointKey": "https://TaxiAIBot.azurewebsites.net/api/messages",
+      "hostname": "https://www.sohu.com"
+
     }
   ],
   "padlock": "",

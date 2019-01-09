@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace TaxiAIBot.Model
 {
+    [Serializable]
     public class Booking
     {
 
